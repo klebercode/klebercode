@@ -1,0 +1,55 @@
+{% extends "blog/entry_base.html" %}
+
+{% load thumbnail %}
+
+{% block nav_blog %}active {% endblock %}
+
+{% block blog_title %}{{ object.title }}{% endblock blog_title %}
+
+{% block blog_map %}
+    <li><a href="{% url 'blog:home' %}">Blog</a></li>
+    <li class="current">{{ object.title }}</li>
+{% endblock blog_map %}
+
+{% block post %}
+
+    <div class="blog-item">
+        {% thumbnail object.image "800x300" crop="center" format="PNG" as im %}
+            <img class="img-responsive img-blog" src="{{ im.url }}" alt="{{ object.title }}" title="{{ object.title }}" />
+        {% empty %}
+            <img src="http://placehold.it/800x300/cccccc/FFFFFF" alt="{{ object.title }}" title="{{ object.title }}" />
+        {% endthumbnail %}
+        <div class="blog-content">
+            <a href="{{ object.get_absolute_url }}"><h3>{{ object.title }}</h3></a>
+            <div class="entry-meta">
+                <span><i class="icon-user"></i> <a href="#">{{ object.author }}</a></span>
+                <span><i class="icon-calendar"></i> {{ object.created|date:"d F Y" }}</span>
+                <!-- <span><i class="icon-comment"></i> <a href="blog-item.html#comments">3 Comments</a></span> -->
+            </div>
+            {% autoescape off %}
+            <p>{{ object.body|linebreaks|cut:"../../../.." }}</p>
+            {% endautoescape %}
+
+            <hr>
+
+            <div class="tags">
+                <i class="icon-tags"></i> Tags
+                {% for tag in object.tags.all %}
+                    <a class="btn btn-xs btn-primary" href="{% url 'blog:tag_list' tag.slug %}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+
+            <hr>
+
+            <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='15458845'></div>
+
+            <p>&nbsp;</p>
+
+            {% load disqus_tags %}
+            {% disqus_show_comments %}
+            {% disqus_recent_comments shortname num_items excerpt_length hide_avatars avatar_size %}
+
+        </div>
+    </div><!--/.blog-item-->
+
+{% endblock post %}

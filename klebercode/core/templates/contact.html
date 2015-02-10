@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+
+{% block nav_contact %}active {% endblock nav_contact %}
+
+{% block content %}
+
+    <section id="title" class="emerald">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1>Contato</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ul class="breadcrumb pull-right">
+                        <li><a href="index.html">Início</a></li>
+                        <li class="active">Contato</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section><!--/#title-->
+
+    <section id="contact-page" class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Formulário de Contato</h4>
+                <div class="status alert alert-success" style="display: none"></div>
+                {% if contact_success %}
+                <p>Mensagem enviada com sucesso.</p>
+                <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Voltar</a>
+                {% else %}
+                <form method="post" action=".">
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12">
+                            {% csrf_token %}
+                            {% for field in contact_form %}
+                                <div class="form-group">
+                                {{ field }}
+                                {{ field.errors }}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg">Enviar Mensagem</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {% endif %}
+            </div><!--/.col-sm-12-->
+        </div>
+    </section><!--/#contact-page-->
+
+{% endblock content %}

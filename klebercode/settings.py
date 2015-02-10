@@ -1,0 +1,193 @@
+"""
+Django settings for klebercode project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from decouple import config
+from dj_database_url import parse as db_url
+from unipath import Path
+BASE_DIR = Path(__file__).parent
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = config('SECRET_KEY')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+TEMPLATE_DEBUG = True
+
+ALLOWED_HOSTS = [
+    '.localhost',
+    '127.0.0.1',
+    '.klebercode.com',
+    '.ow7.com.br',
+]
+
+
+# Application definition
+
+INSTALLED_APPS = (
+    'grappelli_extensions',
+    'grappelli',
+    'filebrowser',
+
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # other apps
+    'south',
+    'tinymce',
+    'sorl.thumbnail',
+    'taggit_autosuggest',
+    'taggit',
+    'bootstrap_pagination',
+    'disqus',
+
+    # my apps
+    'klebercode.core',
+    'klebercode.blog',
+)
+
+MIDDLEWARE_CLASSES = (
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'klebercode.current_user.CurrentUserMiddleware',
+)
+
+ROOT_URLCONF = 'klebercode.urls'
+
+WSGI_APPLICATION = 'klebercode.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
+
+DATABASES = {
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///' + BASE_DIR.child('db.sqlite3'),
+        cast=db_url),
+}
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.6/topics/i18n/
+
+LANGUAGE_CODE = 'pt-br'
+
+TIME_ZONE = 'America/Recife'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_ROOT = BASE_DIR.child('staticfiles')
+STATIC_URL = '/static/'
+
+MEDIA_ROOT = BASE_DIR.child('media')
+MEDIA_URL = '/media/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# DEFAULT_FROM_EMAIL = 'Prefeitura de Palmeirina <no-reply@palmeirina.pe.gov.br>'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtpi.kinghost.net'
+# EMAIL_HOST_USER = 'contato@palmeirina.pe.gov.br'
+# EMAIL_HOST_PASSWORD = 'pmsAl@9090'
+# EMAIL_PORT = 587
+
+
+# django-tinymce
+# TINYMCE_JS_URL = STATIC_URL + 'tiny_mce/tiny_mce.js'
+TINYMCE_DEFAULT_CONFIG = {
+    # General options
+    'mode': "textareas",
+    'theme': "advanced",
+    'plugins': "autolink,lists,spellchecker,pagebreak,style,layer,table,save, \
+                advhr,advimage,advlink,emotions,iespell,inlinepopups, \
+                insertdatetime,preview,media,searchreplace,print,contextmenu, \
+                paste,directionality,fullscreen,noneditable,visualchars, \
+                nonbreaking,xhtmlxtras,template",
+
+    # Theme options
+    'theme_advanced_buttons1': "save,newdocument,|,bold,italic,underline, \
+        strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull, \
+        |,styleselect,formatselect,fontselect,fontsizeselect",
+    'theme_advanced_buttons2': "cut,copy,paste,pastetext,pasteword,|,search, \
+        replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo, \
+        |,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime, \
+        preview,|,forecolor,backcolor",
+    'theme_advanced_buttons3': "tablecontrols,|,hr,removeformat,visualaid, \
+        |,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr, \
+        rtl,|,fullscreen",
+    'theme_advanced_buttons4': "insertlayer,moveforward,movebackward, \
+        absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins, \
+        attribs,|,visualchars,nonbreaking,template,blockquote, \
+        pagebreak,|,insertfile,insertimage",
+    'theme_advanced_toolbar_location': "top",
+    'theme_advanced_toolbar_align': "left",
+    'theme_advanced_statusbar_location': "bottom",
+    'theme_advanced_resizing': "true",
+    'height': '400',
+}
+
+
+# grappelli
+GRAPPELLI_ADMIN_TITLE = 'OW7 | CMS'
+
+# GRAPPELLI_EXTENSIONS_NAVBAR = 'pmsal.extensions.Navbar'
+
+# GRAPPELLI_EXTENSIONS_SIDEBAR = 'pmsal.extensions.Sidebar'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+)
+
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+)
+
+
+# south {taggit}
+SOUTH_MIGRATION_MODULES = {
+    'taggit': 'taggit.south_migrations',
+}
+
+TAGGIT_AUTOSUGGEST_CSS_FILENAME = 'autoSuggest-grappelli.css'
+
+DISQUS_API_KEY = '491DGpuY1PfEh4LUmVXr7Zia5tr6hK1PxSbuRUL1QPfCP8V2Vj0seVWER5zRB7dw'
+DISQUS_WEBSITE_SHORTNAME = 'KleberCode'
