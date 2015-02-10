@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+
+{% block nav_home %}active{% endblock nav_home %}
+
+{% block content %}
+    <section id="main-slider" class="no-margin">
+        <div class="carousel slide wet-asphalt">
+            <div class="carousel-inner">
+                {% for recent_post in blog_list %}
+                    <div style="background-image: url(static/images/slider/bg4.jpg)" class="item {% if forloop.first %}active{% endif %}">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="carousel-content centered center" style="margin-top: 265px;">
+                                        <h1 class="animation animated-item-1">{{ recent_post.title }}</h1>
+                                        <p class="animation animated-item-2"><small>{{ recent_post.created|timesince }} atrás</small></p>
+                                        {% autoescape off %}
+                                        <p class="animation animated-item-3"><h3>{{ recent_post.body|striptags|slice:":400" }}...</h3></p>
+                                        {% endautoescape %}
+                                        <a href="{{ recent_post.get_absolute_url }}" class="btn btn-md animation animated-item-3">Continuar lendo...</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--/.item-->
+                {% endfor %}
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="icon-angle-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="icon-angle-right"></i>
+        </a>
+    </section><!--/#main-slider-->
+
+    <section id="services" class="emerald">
+        <div class="container">
+            <div class="row">
+                <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='15458845'></div>
+            </div>
+        </div>
+    </section><!--/#services-->
+
+{% endblock content %}

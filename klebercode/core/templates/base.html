@@ -1,0 +1,148 @@
+{% load i18n %}
+{% load staticfiles %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ enterprise.name }}">
+    <meta name="keywords" content="python, django, code, js, html, linode, server">
+    <meta name="author" content="OW7">
+    <title>{{ enterprise.name }} - {{ enterprise.description }}{% block title %}{% endblock title %}</title>
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/prettyPhoto.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/animate.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/main.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png"> -->
+
+    <script type="text/javascript">
+    //<![CDATA[
+      (function() {
+        var shr = document.createElement('script');
+        shr.setAttribute('data-cfasync', 'false');
+        shr.src = '//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js';
+        shr.type = 'text/javascript'; shr.async = 'true';
+        shr.onload = shr.onreadystatechange = function() {
+          var rs = this.readyState;
+          if (rs && rs != 'complete' && rs != 'loaded') return;
+          var site_id = 'f384dbd8179218e46b438dc03aa74361';
+          try { Shareaholic.init(site_id); } catch (e) {}
+        };
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(shr, s);
+      })();
+    //]]>
+    </script>
+
+    {% block extra_head %}{% endblock extra_head %}
+</head><!--/head-->
+<body>
+    <header class="navbar navbar-inverse navbar-fixed-top wet-asphalt" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}">{{ enterprise.name }}</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% block nav_home %}{% endblock %}"><a href="{% url 'home' %}">Início</a></li>
+                    {% for item in menu %}
+                        <li class="{% block nav_item.name %}{% endblock %}nav-item"><a href="{{ item.get_absolute_url_menu }}">{{ item.name }}</a></li>
+                    {% endfor %}
+                    <li class="{% block nav_blog %}{% endblock %}"><a href="{% url 'blog:home' %}">Blog</a></li>
+                    <li class="{% block nav_contact %}{% endblock %}"><a href="{% url 'contact' %}">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+    </header><!--/header-->
+
+    {% block content %}{% endblock content %}
+
+    <section id="bottom" class="wet-asphalt">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-6">
+                    <h4>About</h4>
+                    <p>Codifiquei em Clipper (Sim, eu sou velho), VB6, .NET, mas ainda bem que conheci <strong>Python</strong>!</p>
+                </div><!--/.col-md-3-->
+
+
+                <div class="col-md-3 col-sm-6">
+                    <h4>Social</h4>
+                    {% for object in social %}
+                        <p><a href="{{ object.link }}">{{ object.name }}</a></p>
+                    {% endfor %}
+                </div> <!--/.col-md-3-->
+
+                <div class="col-md-4 col-sm-6">
+                    <h4>Posts Recentes</h4>
+                    <div>
+                        {% for object in recent_posts %}
+                        <div class="media">
+                            <div class="pull-left">
+                                <a href="{{ object.get_absolute_url }}">
+                                {% thumbnail object.image "64" crop="center" format="PNG" as im %}
+                                    <img class="img-responsive img-blog" src="{{ im.url }}" alt="{{ object.title }}" title="{{ object.title }}" />
+                                {% empty %}
+                                    <img src="http://placehold.it/64x64/cccccc/FFFFFF" alt="{{ object.title }}" title="{{ object.title }}" />
+                                {% endthumbnail %}
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <span class="media-heading"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></span>
+                                <small class="muted">{{ object.created|timesince }} atrás</small>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p>Nenhuma notícia encontrada.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!--/#bottom-->
+
+    <footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
+                </div>
+                <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><a href="{% url 'home' %}">Início</a></li>
+                        {% for item in menu %}
+                            <li><a href="{{ item.get_absolute_url_menu }}">{{ item.name }}</a></li>
+                        {% endfor %}
+                        <li><a href="{% url 'blog:home' %}">Blog</a></li>
+                        <li><a href="{% url 'contact' %}">Contato</a></li>
+                        <li><a id="gototop" class="gototop" href="#"><i class="icon-chevron-up"></i></a></li><!--#gototop-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer><!--/#footer-->
+
+    <script src="{{ STATIC_URL }}js/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.prettyPhoto.js"></script>
+    <script src="{{ STAITC_URL }}js/main.js"></script>
+
+    {% block extra_bot %}{% endblock extra_bot %}
+</body>
+</html>

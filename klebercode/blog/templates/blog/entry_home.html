@@ -1,0 +1,44 @@
+{% extends "blog/entry_base.html" %}
+
+{% load thumbnail %}
+{% load bootstrap_pagination %}
+
+{% block nav_blog %}active {% endblock %}
+
+{% block blog_title %}Blog{% endblock blog_title %}
+
+{% block blog_map %}
+    <li class="current">Blog</li>
+{% endblock blog_map %}
+
+{% block post %}
+
+    {% for object in object_list %}
+    <div class="blog-item">
+        {% thumbnail object.image "800x300" crop="center" format="PNG" as im %}
+            <img class="img-responsive img-blog" src="{{ im.url }}" alt="{{ object.title }}" title="{{ object.title }}" />
+        {% empty %}
+            <img src="http://placehold.it/800x300/cccccc/FFFFFF" alt="{{ object.title }}" title="{{ object.title }}" />
+        {% endthumbnail %}
+        <div class="blog-content">
+            <a href="{{ object.get_absolute_url }}"><h3>{{ object.title }}</h3></a>
+            <div class="entry-meta">
+                <span><i class="icon-user"></i> <a href="#">{{ object.author }}</a></span>
+                <span><i class="icon-calendar"></i> {{ object.created|date:"d F Y" }}</span>
+                <!-- <span><i class="icon-comment"></i> <a href="blog-item.html#comments">3 Comments</a></span> -->
+            </div>
+            {% autoescape off %}
+            <p>{{ object.body|striptags|truncatewords_html:50 }}</p>
+            {% endautoescape %}
+            <a class="btn btn-default" href="{{ object.get_absolute_url }}">Continuar lendo... <i class="icon-angle-right"></i></a>
+        </div>
+    </div><!--/.blog-item-->
+    {% empty %}
+    <p>Nenhuma notícia encontrada.</p>
+    {% endfor %}
+
+    {% if id_paginated %}
+    {% bootstrap_paginate page_obj range=10 show_prev_next="true" show_first_last="true" previous_title="teste" previous_label="&lsaquo;" next_label="&rsaquo;" %}
+    {% endif %}
+
+{% endblock post %}

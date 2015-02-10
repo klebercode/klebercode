@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load thumbnail %}
+
+{% block nav_city_hall %}active {% endblock %}
+
+{% block content %}
+
+    <!-- ******CONTENT****** -->
+    <div class="content container">
+        <div class="page-wrapper">
+            <header class="page-heading clearfix">
+                <h1 class="heading-title pull-left">{{ content_list.category }}</h1>
+                <div class="breadcrumbs pull-right">
+                    <ul class="breadcrumbs-list">
+                        <li class="breadcrumbs-label">Você está aqui:</li>
+                        <li><a href="{% url 'home' %}">Início</a><i class="fa fa-angle-right"></i></li>
+                        <li class="current">{{ content_list.category }}</li>
+                    </ul>
+                </div><!--//breadcrumbs-->
+            </header>
+            <div class="page-content">
+                <div class="row page-row">
+                    <article class="welcome col-md-8 col-sm-7">
+                        {% autoescape off %}
+                        <p>{{ content_list.body|linebreaks|cut:"../../../.." }}</p>
+                        {% endautoescape %}
+                    </article><!--//page-content-->
+                    <aside class="page-sidebar  col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1">
+                        <section class="widget has-divider">
+                            <h3 class="title">Secretarias</h3>
+                            <ul class="job-list custom-list-style">
+                            {% for item in secretarias %}
+                                <li><i class="fa fa-caret-right"></i><a href="{{ item.get_absolute_url_secretaria }}">{{ item.name }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </section><!--//widget-->
+                        <section class="widget has-divider">
+                            <h3 class="title">Acontece</h3>
+                            <iframe class="iframe" src="//www.youtube.com/embed/Ks-_Mh1QhMc?rel=0&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                        </section><!--//widget-->
+                        <section class="widget">
+                            <h3 class="title">Contato</h3>
+                            <p class="tel"><i class="fa fa-phone"></i>Fone: {{ enterprise.phone1 }}</p>
+                            <p class="email"><i class="fa fa-envelope"></i>Email: <a href="#">{{ enterprise.email }}</a></p>
+                        </section><!--//widget-->
+                    </aside>
+                </div><!--//page-row-->
+            </div><!--//page-content-->
+        </div><!--//page-->
+
+        {% if blog_list %}
+        <div class="home-page">
+            <section class="news">
+                <a href="{% url 'blog:home' %}">
+                    <h1 class="section-heading text-highlight"><span class="line">Últimas Notícias</span></h1>
+                </a>
+                <div class="carousel-controls">
+                    <a class="prev" href="#news-carousel" data-slide="prev"><i class="fa fa-caret-left"></i></a>
+                    <a class="next" href="#news-carousel" data-slide="next"><i class="fa fa-caret-right"></i></a>
+                </div><!--//carousel-controls-->
+                <div class="section-content clearfix">
+                    <div id="news-carousel" class="news-carousel carousel slide">
+                        <div class="carousel-inner">
+                        {% for blog in blog_list %}
+                            {% if forloop.counter == 1 %}
+                            <div class="item active">
+                            {% endif %}
+                                <div class="col-md-4 news-item">
+                                    <h2 class="title"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h2>
+                                    {% thumbnail blog.image "100" crop="center" format="PNG" as im %}
+                                        <img class="thumb" src="{{ im.url }}" alt="{{ blog.title }}">
+                                    {% empty %}
+                                        <img class="thumb" src="http://placehold.it/216x144/cccccc/FFFFFF" alt="{{ blog.title }}">
+                                    {% endthumbnail %}
+                                    {% autoescape off %}
+                                        <p>{{ blog.body|striptags|slice:":100" }}...</p>
+                                    {% endautoescape %}
+                                    <a class="read-more" href="{{ blog.get_absolute_url }}">Leia mais<i class="fa fa-chevron-right"></i></a>
+                                </div><!--//news-item-->
+                            {% if forloop.counter == 3 %}
+                            </div><!--//item-->
+                            <div class="item">
+                            {% endif %}
+                            {% if forloop.counter == 6 %}
+                            </div><!--//item-->
+                            {% endif %}
+                        {% endfor %}
+                        </div><!--//carousel-inner-->
+                    </div><!--//news-carousel-->
+                </div><!--//section-content-->
+            </section><!--//news-->
+        </div><!--//home-page-->
+        {% endif %}
+
+    </div><!--//content-->
+
+{% endblock content %}
