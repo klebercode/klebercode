@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'taggit',
     'bootstrap_pagination',
     'disqus',
+    'ganalytics',
 
     # my apps
     'klebercode.core',
@@ -191,3 +192,5 @@ TAGGIT_AUTOSUGGEST_CSS_FILENAME = 'autoSuggest-grappelli.css'
 
 DISQUS_API_KEY = '491DGpuY1PfEh4LUmVXr7Zia5tr6hK1PxSbuRUL1QPfCP8V2Vj0seVWER5zRB7dw'
 DISQUS_WEBSITE_SHORTNAME = 'KleberCode'
+
+GANALYTICS_TRACKING_CODE = 'UA-59581177-1'
