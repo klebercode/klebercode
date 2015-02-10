@@ -1,6 +1,8 @@
 {% extends "blog/entry_base.html" %}
 
-{% load thumbnail %}
+{% load thumbnail ganalytics %}
+
+{% block extra_head %}{% ganalytics %}{% endblock extra_head %}
 
 {% block nav_blog %}active {% endblock %}
 

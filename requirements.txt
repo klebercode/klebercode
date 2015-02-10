@@ -11,6 +11,7 @@ django-bootstrap-pagination==1.5.1
 django-classy-tags==0.5.1
 django-disqus==0.4.3
 django-filebrowser==3.5.6
+django-ganalytics==0.4
 django-grappelli==2.5.3
 -e git://github.com/django-grappelli-extensions/django-grappelli-extensions.git@bca8e7542c78d6d8a63b8b3906c40a1160db55fc#egg=django_grappelli_extensions-dev
 django-taggit==0.12.1
