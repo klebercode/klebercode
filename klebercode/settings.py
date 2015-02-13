@@ -129,11 +129,30 @@ TINYMCE_DEFAULT_CONFIG = {
     # General options
     'mode': "textareas",
     'theme': "advanced",
+    'height': '400',
     'plugins': "autolink,lists,spellchecker,pagebreak,style,layer,table,save, \
                 advhr,advimage,advlink,emotions,iespell,inlinepopups, \
                 insertdatetime,preview,media,searchreplace,print,contextmenu, \
                 paste,directionality,fullscreen,noneditable,visualchars, \
                 nonbreaking,xhtmlxtras,template",
+    'extended_valid_elements': "code[class]",
+    'remove_linebreaks': "False",
+    'style_formats': [
+        {"title": "BASH", "block": "code", "classes": "bash", },
+        {"title": "C#", "block": "code", "classes": "csharp", },
+        {"title": "CSS", "block": "code", "classes": "css", },
+        {"title": "Go", "block": "code", "classes": "go", },
+        {"title": "INI", "block": "code", "classes": "ini", },
+        {"title": "Java", "block": "code", "classes": "java", },
+        {"title": "JavaScript", "block": "code", "classes": "javascript", },
+        {"title": "JSON", "block": "code", "classes": "json", },
+        {"title": "HTML/XML", "block": "code", "classes": "xml", },
+        {"title": "Ruby", "block": "code", "classes": "ruby", },
+        {"title": "PHP", "block": "code", "classes": "php", },
+        {"title": "Python", "block": "code", "classes": "python", },
+        {"title": "Scala", "block": "code", "classes": "scala", },
+        {"title": "SQL", "block": "code", "classes": "sql", },
+    ],
 
     # Theme options
     'theme_advanced_buttons1': "save,newdocument,|,bold,italic,underline, \
@@ -154,7 +173,6 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_toolbar_align': "left",
     'theme_advanced_statusbar_location': "bottom",
     'theme_advanced_resizing': "true",
-    'height': '400',
 }
 
 

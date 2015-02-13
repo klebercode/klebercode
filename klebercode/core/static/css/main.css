@@ -53,6 +53,16 @@ hr {
   border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #fff;
 }
+pre {
+  display: block;
+  white-space: pre;
+  padding: 0;
+  font-size: 14px;
+  /* border: 0; */
+}
+code, pre {
+  font-family: monospace;
+}
 .btn {
   font-weight: 400;
 }
