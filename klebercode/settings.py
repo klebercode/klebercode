@@ -139,7 +139,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'remove_linebreaks': False,
     'forced_root_block': False,
     'force_p_newlines': False,
-    'force_br_newlines': True,
+    'force_br_newlines': False,
     'style_formats': [
         {"title": "BASH", "block": "code", "classes": "bash", },
         {"title": "C#", "block": "code", "classes": "csharp", },
