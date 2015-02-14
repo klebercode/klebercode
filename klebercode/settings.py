@@ -134,9 +134,12 @@ TINYMCE_DEFAULT_CONFIG = {
                 advhr,advimage,advlink,emotions,iespell,inlinepopups, \
                 insertdatetime,preview,media,searchreplace,print,contextmenu, \
                 paste,directionality,fullscreen,noneditable,visualchars, \
-                nonbreaking,xhtmlxtras,template",
+                nonbreaking,xhtmlxtras,template,syntaxhl",
     'extended_valid_elements': "code[class]",
-    'remove_linebreaks': "False",
+    'remove_linebreaks': False,
+    'forced_root_block': False,
+    'force_p_newlines': False,
+    'force_br_newlines': True,
     'style_formats': [
         {"title": "BASH", "block": "code", "classes": "bash", },
         {"title": "C#", "block": "code", "classes": "csharp", },
@@ -168,7 +171,7 @@ TINYMCE_DEFAULT_CONFIG = {
     'theme_advanced_buttons4': "insertlayer,moveforward,movebackward, \
         absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins, \
         attribs,|,visualchars,nonbreaking,template,blockquote, \
-        pagebreak,|,insertfile,insertimage",
+        pagebreak,|,insertfile,insertimage,syntaxhl",
     'theme_advanced_toolbar_location': "top",
     'theme_advanced_toolbar_align': "left",
     'theme_advanced_statusbar_location': "bottom",
