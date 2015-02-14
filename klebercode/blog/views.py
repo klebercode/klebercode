@@ -68,6 +68,12 @@ class EntryDateDetailView(EnterpriseExtraContext, generic.DateDetailView):
     make_object_list = True
     allow_future = True
 
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Entry.objects.all()
+        else:
+            return Entry.published.all()
+
     def get_context_data(self, **kwargs):
         context = super(EntryDateDetailView, self).get_context_data(**kwargs)
         context['tag_list'] = Entry.tags.most_common()
@@ -81,7 +87,7 @@ class EntryTagListView(EntryListView):
     """
     Herda de EntryListView mudando o filtro para tag selecionada
     """
-    def get_queryset(self):
+    def get_queryset(self, **kwargs):
         """
         Incluir apenas as Entries marcadas com a tag selecionada
         """
