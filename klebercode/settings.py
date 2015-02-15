@@ -118,8 +118,8 @@ MEDIA_URL = '/media/'
 DEFAULT_FROM_EMAIL = 'KleberCode <no-reply@klebercode.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'kleberss@gmail.com'
-EMAIL_HOST_PASSWORD = 'kleb289Soa'
+EMAIL_HOST_USER = 'contato@jookle.com.br'
+EMAIL_HOST_PASSWORD = 'con@kle0'
 EMAIL_PORT = 587
 
 
