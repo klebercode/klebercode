@@ -19,7 +19,7 @@ class ContactForm(forms.Form):
                                          'placeholder': 'Mensagem'}))
 
     def send_mail(self):
-        subject = u'Contato do site (%s)' % self.cleaned_data['name']
+        subject = u'Contato do KleberCode (%s)' % self.cleaned_data['name']
         context = {
             'name': self.cleaned_data['name'],
             'email': self.cleaned_data['email'],
@@ -29,7 +29,7 @@ class ContactForm(forms.Form):
         message_html = render_to_string('contact_mail.html', context)
         msg = EmailMultiAlternatives(subject, message,
                                      'no-reply@klebercode.com',
-                                     ['kleberr@msn.com'])
+                                     ['klebess@gmail.com'])
 
         msg.attach_alternative(message_html, 'text/html')
         msg.send()
