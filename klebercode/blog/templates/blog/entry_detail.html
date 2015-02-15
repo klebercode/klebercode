@@ -10,7 +10,7 @@
 
 {% block blog_map %}
     <li><a href="{% url 'blog:home' %}">Blog</a></li>
-    <li class="current">{{ object.title }}</li>
+    <li class="current">{{ object.title|slice:":30" }}...</li>
 {% endblock blog_map %}
 
 {% block post %}
