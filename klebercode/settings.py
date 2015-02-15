@@ -113,14 +113,14 @@ MEDIA_ROOT = BASE_DIR.child('media')
 MEDIA_URL = '/media/'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# DEFAULT_FROM_EMAIL = 'Prefeitura de Palmeirina <no-reply@palmeirina.pe.gov.br>'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtpi.kinghost.net'
-# EMAIL_HOST_USER = 'contato@palmeirina.pe.gov.br'
-# EMAIL_HOST_PASSWORD = 'pmsAl@9090'
-# EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'KleberCode <no-reply@klebercode.com>'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = config('HOST_USER')
+EMAIL_HOST_PASSWORD = config('HOST_PASSWORD')
+EMAIL_PORT = 587
 
 
 # django-tinymce
