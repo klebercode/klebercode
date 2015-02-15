@@ -43,11 +43,23 @@ class EntryListView(EnterpriseExtraContext,  generic.ListView):
     def get_queryset(self, **kwargs):
         search = self.request.GET.get('search', '')
         if search:
-            obj_lst = Entry.published.filter(Q(title__icontains=search) |
+            obj_lst = Entry.objects.filter(Q(title__icontains=search) |
+                                           Q(created__icontains=search) |
+                                           Q(body__icontains=search))
+
+            pub_lst = Entry.published.filter(Q(title__icontains=search) |
                                              Q(created__icontains=search) |
                                              Q(body__icontains=search))
+
+            if self.request.user.is_superuser:
+                obj_lst = obj_lst
+            else:
+                obj_lst = pub_lst
         else:
-            obj_lst = Entry.published.all()
+            if self.request.user.is_superuser:
+                obj_lst = Entry.objects.all()
+            else:
+                obj_lst = Entry.published.all()
         return obj_lst
 
     def get_context_data(self, **kwargs):
