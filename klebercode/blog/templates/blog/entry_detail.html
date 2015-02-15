@@ -22,6 +22,9 @@
             <img src="http://placehold.it/800x300/cccccc/FFFFFF" alt="{{ object.title }}" title="{{ object.title }}" />
         {% endthumbnail %}
         <div class="blog-content">
+            {% if not object.publish %}
+                <center><strong style="color: red;">Esse post não está publicado.</strong></center>
+            {% endif %}
             <a href="{{ object.get_absolute_url }}"><h3>{{ object.title }}</h3></a>
             <div class="entry-meta">
                 <span><i class="icon-user"></i> <a href="#">{{ object.author }}</a></span>
