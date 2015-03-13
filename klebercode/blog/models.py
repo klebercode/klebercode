@@ -8,12 +8,6 @@ from filebrowser.fields import FileBrowseField
 from tinymce import models as tinymce_models
 from taggit_autosuggest.managers import TaggableManager
 
-try:
-    from PIL import Image, ImageOps
-except ImportError:
-    import Image
-    import ImageOps
-
 from klebercode.current_user import get_current_user
 from klebercode.core.models import Category
 

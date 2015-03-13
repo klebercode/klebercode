@@ -117,9 +117,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_FROM_EMAIL = 'KleberCode <no-reply@klebercode.com>'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'kleber.pe@gmail.com'
-EMAIL_HOST_PASSWORD = 'kleb289Soa'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
 
@@ -182,9 +182,9 @@ TINYMCE_DEFAULT_CONFIG = {
 # grappelli
 GRAPPELLI_ADMIN_TITLE = 'OW7 | CMS'
 
-# GRAPPELLI_EXTENSIONS_NAVBAR = 'pmsal.extensions.Navbar'
+# GRAPPELLI_EXTENSIONS_NAVBAR = 'klebercode.extensions.Navbar'
 
-# GRAPPELLI_EXTENSIONS_SIDEBAR = 'pmsal.extensions.Sidebar'
+# GRAPPELLI_EXTENSIONS_SIDEBAR = 'klebercode.extensions.Sidebar'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -211,7 +211,7 @@ SOUTH_MIGRATION_MODULES = {
 
 TAGGIT_AUTOSUGGEST_CSS_FILENAME = 'autoSuggest-grappelli.css'
 
-DISQUS_API_KEY = '491DGpuY1PfEh4LUmVXr7Zia5tr6hK1PxSbuRUL1QPfCP8V2Vj0seVWER5zRB7dw'
-DISQUS_WEBSITE_SHORTNAME = 'KleberCode'
+DISQUS_API_KEY = config('DISQUS_API_KEY')
+DISQUS_WEBSITE_SHORTNAME = config('DISQUS_WEBSITE_SHORTNAME')
 
-GANALYTICS_TRACKING_CODE = 'UA-59581177-1'
+GANALYTICS_TRACKING_CODE = config('GANALYTICS_TRACKING_CODE')
